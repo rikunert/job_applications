@@ -16,7 +16,7 @@ idx	company	application_type	application_start	reaction_1	interview_1	reaction_2
 15	unbelievablemachine	vacancy	17.10.2017	NA	NA	NA	NA	NA	NA	NA	NA	03.11.2017	NA
 16	babbel	vacancy	19.10.2017	NA	NA	NA	NA	NA	NA	NA	NA	30.10.2017	NA
 17	verivox	vacancy	23.10.2017	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
-18	smava	recruiter	23.10.2017	30.10.2017	08.11.2017	10.11.2017	14.11.2017	16.11.2017	NA	NA	NA	NA	NA
+18	smava	recruiter	23.10.2017	30.10.2017	08.11.2017	10.11.2017	14.11.2017	16.11.2017	27.11.2017	04.12.2017	NA	NA	NA
 19	stackfuel	vacancy	31.10.2017	02.11.2017	07.11.2017	NA	07.11.2017	10.11.2017	14.11.2017	17.11.2017	NA	NA	22.11.2017
 20	marketlogic	recruiter	02.11.2017	NA	NA	NA	NA	NA	NA	NA	NA	NA	NA
 21	shopify	vacancy	07.11.2017	NA	NA	NA	NA	NA	NA	NA	NA	20.11.2017	NA
