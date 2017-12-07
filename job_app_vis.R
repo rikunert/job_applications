@@ -63,7 +63,7 @@ p = legend_fun(p, p_text = 'offer', 'green', 20 + 4)
 
 p
 
-ggsave('Job_appl_1.png', width = 8.21, height = 4.11, scale = 1, dpi = 1000) # 876 x 438
+# ggsave('Job_appl_1.png', width = 8.21, height = 4.11, scale = 1, dpi = 1000) # 876 x 438
 
 ##############################################################################################
 # TRANSITION PLOT
@@ -105,22 +105,61 @@ dat_trans = data.frame(labels = c('start', 'interview 1', 'task', 'interview 2',
 dat_trans
 
 cols = c('start' = 'green4', 'interview 1' = 'darkorange', 'task' = 'deeppink3', 'interview 2' = 'darkorange',
-         'offer' = 'green', 'withdrawal' = 'black', 'no answer' = 'red3', 'rejection' = 'red3')
+         'offer' = 'green', 'withdrawal' = 'white', 'no answer' = 'red3', 'rejection' = 'red3')
 
 p_s = 2.6
 p_st = 1.8
 
-p = ggplot() +
-  geom_segment(data = data.frame(x1 = 1, x2 = 2 - 0.065, y1 = 3, y2 = 3),
-               aes(x = x1, y = y1, xend = x2, yend = y2),
-               arrow = arrow(length = unit(0.03, "npc")), 
-               size = 2, color = 'grey20') +
-  geom_curve(data = data.frame(x1 = 2, x2 = 4 - 0.06, y1 = 2.98, y2 = 2.95),
-             aes(x = x1, y = y1, xend = x2, yend = y2), curvature = 0.3,
-             arrow = arrow(length = unit(0.03, "npc")),
-             size = 2, color = 'grey20') +
-  geom_point(data = dat_trans, aes(x = x, y = y, fill = labels, size = s),
-             shape = 21, stroke = p_st, colour = 'grey20') +
+p = ggplot()
+
+# arrows
+arrow_fun = function(p, x1, x2, y1, y2, s, curve = 0){
+  p = p + geom_curve(data = data.frame(x1 = x1, x2 = x2, y1 = y1, y2 = y2),
+                     aes(x = x1, y = y1, xend = x2, yend = y2), curvature = curve,
+                     arrow = arrow(length = unit(0.03, "npc")),
+                     size = s, color = 'grey20')
+}
+a_c = 5
+p = arrow_fun(p, 1, 2 - 0.07, 3, 3, a_c * m['start', 'interview 1'])  # start -> interview 1
+p = arrow_fun(p, 2, 3 - 0.06, 3, 3, a_c * m['interview 1', 'task'])  # interview 1 -> task
+p = arrow_fun(p, 3, 4 - 0.2, 3, 3, a_c * m['task', 'interview 2'])  # task -> interview 2
+p = arrow_fun(p, 4, 5 - 0.05, 3, 3, a_c * m['interview 2', 'offer'])  # interview 2 -> offer
+p = arrow_fun(p, 2, 4-0.06, 2.98, 2.95, a_c * m['interview 1', 'interview 2'], 0.4)  # interview 1 -> interview 2
+p = arrow_fun(p, 1, 1, 3, 1.65, a_c * m['start', 'no answer'])  # start -> no answer
+p = arrow_fun(p, 1, 2.417, 3, 1, a_c * m['start', 'rejection'], 0.3)  # start -> rejection
+p = arrow_fun(p, 2, 2.45, 3, 1.15, a_c * m['interview 1', 'rejection'], 0)  # interview 1 -> rejection
+p = arrow_fun(p, 4, 2.585, 3, 1, a_c * m['interview 2', 'rejection'], -0.3)  # interview 2 -> rejection
+p = arrow_fun(p, 2, 2.94, 3, 4.448, a_c * m['interview 1', 'withdrawal'], 0)  # interview 1 -> withdrawal
+p = arrow_fun(p, 4, 3.06, 3, 4.448, a_c * m['interview 1', 'withdrawal'], 0)  # interview 2 -> withdrawal
+
+p
+
+# state labels
+legend_fun2 = function(p, p_text, p_col,p_x, p_y){
+  p = p + 
+    geom_point(data = data.frame(x = c(p_x, p_x + 0.35),
+                                 y = c(p_y + 0.077, p_y + 0.077)),
+               aes(x = x, y = y), size = 3.6, colour = 'grey20') +
+    annotate("rect", xmin = p_x, xmax = p_x + 0.35,
+             ymin = p_y, ymax = p_y + 0.15, fill = 'grey20', colour = 'grey20') +
+    annotate('text', x = p_x, y = p_y + .08, label=p_text, fontface =2,
+             size = 3, color = p_col, hjust = 0)
+}
+
+p1 = legend_fun2(p, p_text = 'start', cols['start'], 0.9, 3.2)
+p1 = legend_fun2(p1, p_text = 'interview 1', cols['interview 1'], 1.9, 3.2)
+p1 = legend_fun2(p1, p_text = 'task', cols['task'], 2.9, 3.2)
+p1 = legend_fun2(p1, p_text = 'interview 2', cols['interview 2'], 3.9, 3.2)
+p1 = legend_fun2(p1, p_text = 'offer', cols['offer'], 4.9, 3.2)
+p1 = legend_fun2(p1, p_text = 'no answer', cols['no answer'], 0.9, 1.2)
+p1 = legend_fun2(p1, p_text = 'rejection', cols['rejection'], 2.4, 0.7)
+p1 = legend_fun2(p1, p_text = 'withdrawal', cols['withdrawal'], 2.9, 4.7)
+
+p1
+
+# dots and theme specs
+p2 = p1 + geom_point(data = dat_trans, aes(x = x, y = y, fill = labels, size = s),
+           shape = 21, stroke = p_st, colour = 'grey20') +
   scale_fill_manual(values = cols) +
   theme_classic() +
   labs(caption = '@rikunert') +
@@ -129,7 +168,9 @@ p = ggplot() +
         axis.title = element_blank(), axis.ticks = element_blank()) +
   ggtitle("The Data Science Application Funnel")
 
-p
+p2
+
+# transition percentages
 
 ggsave('Job_appl_2.png', width = 8.21, height = 4.11, scale = 1, dpi = 1000) # 876 x 438
 
