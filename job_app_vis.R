@@ -146,20 +146,23 @@ legend_fun2 = function(p, p_text, p_col,p_x, p_y){
              size = 3, color = p_col, hjust = 0)
 }
 
-p1 = legend_fun2(p, p_text = 'start', cols['start'], 0.9, 3.2)
-p1 = legend_fun2(p1, p_text = 'interview 1', cols['interview 1'], 1.9, 3.2)
+p1 = legend_fun2(p, p_text = 'start', cols['start'], 0.5, 3.2)
+p1 = legend_fun2(p1, p_text = 'interview 1', cols['interview 1'], 1.5, 3.2)
 p1 = legend_fun2(p1, p_text = 'task', cols['task'], 2.9, 3.2)
 p1 = legend_fun2(p1, p_text = 'interview 2', cols['interview 2'], 3.9, 3.2)
 p1 = legend_fun2(p1, p_text = 'offer', cols['offer'], 4.9, 3.2)
-p1 = legend_fun2(p1, p_text = 'no answer', cols['no answer'], 0.9, 1.2)
-p1 = legend_fun2(p1, p_text = 'rejection', cols['rejection'], 2.4, 0.7)
+p1 = legend_fun2(p1, p_text = 'no answer', cols['no answer'], 0.45, 1.2)
+p1 = legend_fun2(p1, p_text = 'rejection', cols['rejection'], 1.9, 0.7)
 p1 = legend_fun2(p1, p_text = 'withdrawal', cols['withdrawal'], 2.9, 4.7)
 
 p1
 
 # dots and theme specs
+minSize = 1
+maxSize = 30
 p2 = p1 + geom_point(data = dat_trans, aes(x = x, y = y, fill = labels, size = s),
            shape = 21, stroke = p_st, colour = 'grey20') +
+  scale_size_continuous(range = c(minSize, maxSize)) +
   scale_fill_manual(values = cols) +
   theme_classic() +
   labs(caption = '@rikunert') +
