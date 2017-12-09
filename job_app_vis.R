@@ -119,48 +119,75 @@ arrow_fun = function(p, x1, x2, y1, y2, s, curve = 0){
                      arrow = arrow(length = unit(0.03, "npc")),
                      size = s, color = 'grey20')
 }
-a_c = 5
-p = arrow_fun(p, 1, 2 - 0.07, 3, 3, a_c * m['start', 'interview 1'])  # start -> interview 1
-p = arrow_fun(p, 2, 3 - 0.06, 3, 3, a_c * m['interview 1', 'task'])  # interview 1 -> task
-p = arrow_fun(p, 3, 4 - 0.2, 3, 3, a_c * m['task', 'interview 2'])  # task -> interview 2
-p = arrow_fun(p, 4, 5 - 0.05, 3, 3, a_c * m['interview 2', 'offer'])  # interview 2 -> offer
-p = arrow_fun(p, 2, 4-0.06, 2.98, 2.95, a_c * m['interview 1', 'interview 2'], 0.4)  # interview 1 -> interview 2
-p = arrow_fun(p, 1, 1, 3, 1.65, a_c * m['start', 'no answer'])  # start -> no answer
-p = arrow_fun(p, 1, 2.417, 3, 1, a_c * m['start', 'rejection'], 0.3)  # start -> rejection
-p = arrow_fun(p, 2, 2.45, 3, 1.15, a_c * m['interview 1', 'rejection'], 0)  # interview 1 -> rejection
-p = arrow_fun(p, 4, 2.585, 3, 1, a_c * m['interview 2', 'rejection'], -0.3)  # interview 2 -> rejection
-p = arrow_fun(p, 2, 2.94, 3, 4.448, a_c * m['interview 1', 'withdrawal'], 0)  # interview 1 -> withdrawal
-p = arrow_fun(p, 4, 3.06, 3, 4.448, a_c * m['interview 1', 'withdrawal'], 0)  # interview 2 -> withdrawal
+a_c = 8
+p = arrow_fun(p, 1, 2 - 0.22, 3, 3, a_c * m['start', 'interview 1'])  # start -> interview 1
+p = arrow_fun(p, 2, 3 - 0.17, 3, 3, a_c * m['interview 1', 'task'])  # interview 1 -> task
+p = arrow_fun(p, 3, 4 - 0.25, 3, 3, a_c * m['task', 'interview 2'])  # task -> interview 2
+p = arrow_fun(p, 4, 5 - 0.09, 3, 3, a_c * m['interview 2', 'offer'])  # interview 2 -> offer
+p = arrow_fun(p, 2, 4-0.15, 2.98, 2.78, a_c * m['interview 1', 'interview 2'], 0.4)  # interview 1 -> interview 2
+p = arrow_fun(p, 1, 1, 3, 1.9, a_c * m['start', 'no answer'])  # start -> no answer
+p = arrow_fun(p, 1, 2.2, 3, 1, a_c * m['start', 'rejection'], 0.3)  # start -> rejection
+p = arrow_fun(p, 2, 2.35, 3, 1.5, a_c * m['interview 1', 'rejection'], 0)  # interview 1 -> rejection
+p = arrow_fun(p, 4, 2.8, 3, 1, a_c * m['interview 2', 'rejection'], -0.3)  # interview 2 -> rejection
+p = arrow_fun(p, 2, 2.85, 3, 4.33, a_c * m['interview 1', 'withdrawal'], 0)  # interview 1 -> withdrawal
+p = arrow_fun(p, 4, 3.15, 3, 4.33, a_c * m['interview 2', 'withdrawal'], 0)  # interview 2 -> withdrawal
 
 p
 
 # state labels
 legend_fun2 = function(p, p_text, p_col,p_x, p_y){
   p = p + 
-    geom_point(data = data.frame(x = c(p_x, p_x + 0.35),
+    geom_point(data = data.frame(x = c(p_x, p_x + 0.4),
                                  y = c(p_y + 0.077, p_y + 0.077)),
                aes(x = x, y = y), size = 3.6, colour = 'grey20') +
-    annotate("rect", xmin = p_x, xmax = p_x + 0.35,
+    annotate("rect", xmin = p_x, xmax = p_x + 0.4,
              ymin = p_y, ymax = p_y + 0.15, fill = 'grey20', colour = 'grey20') +
     annotate('text', x = p_x, y = p_y + .08, label=p_text, fontface =2,
              size = 3, color = p_col, hjust = 0)
 }
 
-p1 = legend_fun2(p, p_text = 'start', cols['start'], 0.5, 3.2)
-p1 = legend_fun2(p1, p_text = 'interview 1', cols['interview 1'], 1.5, 3.2)
-p1 = legend_fun2(p1, p_text = 'task', cols['task'], 2.9, 3.2)
-p1 = legend_fun2(p1, p_text = 'interview 2', cols['interview 2'], 3.9, 3.2)
-p1 = legend_fun2(p1, p_text = 'offer', cols['offer'], 4.9, 3.2)
+p1 = legend_fun2(p, p_text = 'start', cols['start'], 0.5, 3.22)
+p1 = legend_fun2(p1, p_text = 'interview 1', cols['interview 1'], 1.45, 3.22)
+p1 = legend_fun2(p1, p_text = 'task', cols['task'], 2.8, 3.22)
+p1 = legend_fun2(p1, p_text = 'interview 2', cols['interview 2'], 3.53, 3.22)
+p1 = legend_fun2(p1, p_text = 'offer', cols['offer'], 4.9, 3.22)
 p1 = legend_fun2(p1, p_text = 'no answer', cols['no answer'], 0.45, 1.2)
 p1 = legend_fun2(p1, p_text = 'rejection', cols['rejection'], 1.9, 0.7)
-p1 = legend_fun2(p1, p_text = 'withdrawal', cols['withdrawal'], 2.9, 4.7)
+p1 = legend_fun2(p1, p_text = 'withdrawal', cols['withdrawal'], 2.55, 4.7)
 
 p1
+
+# state labels
+trans_legend_fun = function(p, p_text,p_x, p_y){
+  p = p + 
+    annotate("rect", xmin = p_x, xmax = p_x + 0.25,
+             ymin = p_y-0.05, ymax = p_y + 0.2, fill = 'white', colour = 'grey20', size = 1) +
+    annotate('text', x = p_x + 0.02, y = p_y + .08, label=p_text, fontface =2,
+             size = 3, color = 'black', hjust = 0)
+}
+
+p2 = trans_legend_fun(p1, p_text = sprintf('%d%%', round(m['start', 'interview 1'] * 100)), 1.4, 2.93)
+p2 = trans_legend_fun(p2, p_text = sprintf('%d%%', round(m['interview 1', "task"] * 100)), 2.2, 2.93)
+p2 = trans_legend_fun(p2, p_text = sprintf('%d%%', round(m["task", "interview 2"] * 100)), 3.15, 2.93)
+p2 = trans_legend_fun(p2, p_text = sprintf('%d%%', round(m['interview 2', "offer"] * 100)), 4.2, 2.93)
+p2 = trans_legend_fun(p2, p_text = sprintf('%d%%', round(m['start', "no answer"] * 100)), 0.88, 2.1)
+p2 = trans_legend_fun(p2, p_text = sprintf('%d%%', round(m['start', "rejection"] * 100)), 1.2, 1.8)
+p2 = trans_legend_fun(p2, p_text = sprintf('%d%%', round(m['interview 1', "rejection"] * 100)), 2, 2.35)
+p2 = trans_legend_fun(p2, p_text = sprintf('%d%%', round(m['interview 1', "interview 2"] * 100)), 2.3, 2.4)
+p2 = trans_legend_fun(p2, p_text = sprintf('%d%%', round(m['interview 1', "withdrawal"] * 100)), 2.2, 3.5)
+p2 = trans_legend_fun(p2, p_text = sprintf('%d%%', round(m['interview 2', "withdrawal"] * 100)), 3.5, 3.5)
+p2 = trans_legend_fun(p2, p_text = sprintf('%d%%', round(m['interview 2', "rejection"] * 100)), 3.75, 2.4)
+
+
+
+
+
+
 
 # dots and theme specs
 minSize = 1
 maxSize = 30
-p2 = p1 + geom_point(data = dat_trans, aes(x = x, y = y, fill = labels, size = s),
+p3 = p2 + geom_point(data = dat_trans, aes(x = x, y = y, fill = labels, size = s),
            shape = 21, stroke = p_st, colour = 'grey20') +
   scale_size_continuous(range = c(minSize, maxSize)) +
   scale_fill_manual(values = cols) +
@@ -171,7 +198,7 @@ p2 = p1 + geom_point(data = dat_trans, aes(x = x, y = y, fill = labels, size = s
         axis.title = element_blank(), axis.ticks = element_blank()) +
   ggtitle("The Data Science Application Funnel")
 
-p2
+p3
 
 # transition percentages
 
