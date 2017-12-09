@@ -35,7 +35,7 @@ p = ggplot() +
   theme(plot.caption = element_text(size = 10, color = 'grey', face= 'italic')) +
   xlab("Date") +
   ylab('Company') +
-  ggtitle("Hunting down a Data Science job")
+  ggtitle("Hunting down a data science job")
 p
 
 for (i in c(5, 7, 10, 12)){  # for each reaction moment
@@ -63,7 +63,7 @@ p = legend_fun(p, p_text = 'offer', 'green', 20 + 4)
 
 p
 
-# ggsave('Job_appl_1.png', width = 8.21, height = 4.11, scale = 1, dpi = 1000) # 876 x 438
+ggsave('Job_appl_1.png', width = 8.21, height = 4.11, scale = 1, dpi = 1000) # 876 x 438
 
 ##############################################################################################
 # TRANSITION PLOT
@@ -178,12 +178,6 @@ p2 = trans_legend_fun(p2, p_text = sprintf('%d%%', round(m['interview 1', "withd
 p2 = trans_legend_fun(p2, p_text = sprintf('%d%%', round(m['interview 2', "withdrawal"] * 100)), 3.5, 3.5)
 p2 = trans_legend_fun(p2, p_text = sprintf('%d%%', round(m['interview 2', "rejection"] * 100)), 3.75, 2.4)
 
-
-
-
-
-
-
 # dots and theme specs
 minSize = 1
 maxSize = 30
@@ -196,35 +190,8 @@ p3 = p2 + geom_point(data = dat_trans, aes(x = x, y = y, fill = labels, size = s
   theme(plot.caption = element_text(size = 10, color = 'grey', face= 'italic')) +
   theme(legend.position = 'none', axis.line=element_blank(), axis.text=element_blank(),
         axis.title = element_blank(), axis.ticks = element_blank()) +
-  ggtitle("The Data Science Application Funnel")
+  ggtitle("The data science application funnel")
 
 p3
 
-# transition percentages
-
 ggsave('Job_appl_2.png', width = 8.21, height = 4.11, scale = 1, dpi = 1000) # 876 x 438
-
-# 
-# 
-# # diagram package plot
-# # install.packages('diagram')
-# # library(diagram)
-# # 
-# # plotmat(m, box.size = 0.1,
-# #                 box.type = "circle",
-# #                 box.prop = 0.5)
-# 
-# # markovchain package plot
-# #install.packages('markovchain')
-# library(markovchain)
-# 
-# m['rejection', 'rejection'] = 1
-# m['offer', 'offer'] = 1
-# m['no answer', 'no answer'] = 1
-# m['withdrawal', 'withdrawal'] = 1
-# 
-# 
-# trans_matrix1 <- new("markovchain", transitionMatrix = m)
-# 
-# # plotting the graph
-# plot(trans_matrix1, edge.arrow.size = 0.35)
